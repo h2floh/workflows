@@ -22,5 +22,6 @@ jobs:
     - script: |
         docker build -t my-docker-image:latest .
         docker run my-docker-image:latest
+        whoami
         docker ps -a
       displayName: 'Build and run Docker image'
