@@ -9,6 +9,7 @@ jobs:
 - job: build
   displayName: 'Docker in Docker Build'
   container:
+    # bash needed for Azure Pipelines https://learn.microsoft.com/en-us/azure/devops/pipelines/process/container-phases?view=azure-devops&tabs=linux
     image: gmaresca/azure-pipeline-agent:ubuntu-18.04-base
     options: --privileged #--volume /var/run/docker.sock:/var/run/docker.sock
   steps:
@@ -20,5 +21,6 @@ jobs:
 
     - script: |
         docker build -t my-docker-image:latest .
-        docker run my-docker-image:latest
+        docker run --log-level=debug my-docker-image:latest -v
+        docker ps -a
       displayName: 'Build and run Docker image'
