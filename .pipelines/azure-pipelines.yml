@@ -1,0 +1,24 @@
+# Azure Pipelines YAML for Docker-in-Docker
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+- job: build
+  displayName: 'Docker in Docker Build'
+  container:
+    image: docker:20.10.7
+    options: --privileged # Required for Docker-in-Docker
+  steps:
+    - checkout: self
+
+    - script: |
+        docker version
+      displayName: 'Check Docker version'
+
+    - script: |
+        docker build -t my-docker-image:latest .
+        docker run my-docker-image:latest
+      displayName: 'Build and run Docker image'
