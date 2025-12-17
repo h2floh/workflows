@@ -1,7 +1,7 @@
-name: Hello World
+name: YAML Anchors
 
 on:
-  workflow_call:
+  workflow_dispatch:
 
 jobs:
   hello: &template
