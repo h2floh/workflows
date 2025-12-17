@@ -1,0 +1,17 @@
+name: YAML Anchors Overwrite
+
+on:
+  workflow_dispatch:
+
+jobs:
+  hello: &template
+    runs-on: ubuntu-latest
+    env:
+      TEXT: "hello"
+    steps:
+    - run: echo "$TEXT World"
+
+  hello2: 
+    <<: *template
+    env:
+      TEXT: "안녕"
